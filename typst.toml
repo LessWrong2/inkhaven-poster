@@ -1,0 +1,7 @@
+[package]
+name = "inkhaven-poster"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["Inkhaven"]
+license = "MIT"
+description = "Large-format essay poster template for the Inkhaven Fair."
