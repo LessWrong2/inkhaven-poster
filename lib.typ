@@ -64,10 +64,22 @@
   )
 }
 
-#let inkhaven-logo() = {
-  // v0.1 text-only wordmark. SVG asset lands in a later commit.
-  text(font: ("Libertinus Serif", "New Computer Modern"), size: 14pt, weight: "regular",
-       tracking: 0.2em, upper[Inkhaven])
+#let inkhaven-logo(height: 0.8in, fill: ink-medium) = {
+  // Square icon mark + "INKHAVEN" wordmark, vertically centered.
+  grid(
+    columns: (auto, auto),
+    column-gutter: 0.5em,
+    align: horizon,
+    image("assets/inkhaven_logo.webp", height: height),
+    text(
+      font: ("Libertinus Serif", "New Computer Modern"),
+      size: height * 0.45,
+      weight: "regular",
+      tracking: 0.3em,
+      fill: fill,
+      upper[Inkhaven],
+    ),
+  )
 }
 
 #let poster(
@@ -112,6 +124,10 @@
   // Title block, non-breakable, spans full width above the columns.
   block(width: 100%, breakable: false)[
     #set align(center)
+
+    #inkhaven-logo()
+    #v(0.4em)
+
     #set text(size: 72pt, weight: "regular",
               font: ("Libertinus Serif", "New Computer Modern"))
     #block(below: 0.4em)[#title]
