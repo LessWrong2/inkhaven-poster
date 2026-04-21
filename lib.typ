@@ -44,12 +44,12 @@
   }
 }
 
-#let byline(author, date: none) = {
+#let byline(author, date: none, accent: rgb("#b8860b")) = {
   set align(center)
-  set text(size: 18pt, style: "italic", weight: "regular")
-  block(below: 1em)[
+  set text(size: 15pt, style: "italic", weight: "regular")
+  block(below: 0.4em)[
     #author
-    #if date != none [ \ #text(size: 16pt)[#date] ]
+    #if date != none [ #h(0.8em) #text(size: 11pt, style: "normal", tracking: 0.2em, fill: accent, upper(date)) ]
   ]
 }
 
@@ -91,6 +91,7 @@
   orientation: "landscape",
   accent-color: gold-dark,
   columns: auto,
+  qr-svg: none,
 ) = {
   let page-size = _resolve-page-size(paper, orientation)
   let column-count = _resolve-columns(paper, orientation, columns)
@@ -98,8 +99,29 @@
   set page(
     width: page-size.width,
     height: page-size.height,
-    margin: (x: 1.5in, y: 1in),
+    margin: (x: 1.5in, y: 0.75in),
     fill: solarized,
+    footer: block(spacing: 0.6em)[
+      #line(length: 100%, stroke: 0.4pt + accent-color)
+      #set text(size: 10pt, fill: ink-medium, tracking: 0.2em)
+      #set align(center)
+      #upper[Inkhaven Residency · Spring 2026 · inkhaven.blog]
+    ],
+    background: if qr-svg != none {
+      place(
+        top + right,
+        dx: -0.5in,
+        dy: 0.6in,
+        block[
+          #image(bytes(qr-svg), format: "svg", width: 1.1in)
+          #block(above: 0.3em, width: 1.1in)[
+            #set text(size: 7pt, fill: ink-medium, tracking: 0.15em)
+            #set align(center)
+            #upper[Read online]
+          ]
+        ],
+      )
+    },
   )
 
   set text(
@@ -113,7 +135,7 @@
   set par(
     justify: true,
     leading: 0.75em,
-    spacing: 0.75em,
+    spacing: 1.2em,
   )
 
   show link: it => {
@@ -125,19 +147,18 @@
   block(width: 100%, breakable: false)[
     #set align(center)
 
-    #inkhaven-logo()
-    #v(0.4em)
+    #inkhaven-logo(height: 0.5in)
 
-    #set text(size: 72pt, weight: "regular",
+    #set text(size: 52pt, weight: "regular",
               font: ("Libertinus Serif", "New Computer Modern"))
-    #block(below: 0.4em)[#title]
+    #block(above: 0.1em, below: 0.7em)[#title]
 
-    #byline(author, date: date)
+    #byline(author, date: date, accent: accent-color)
 
     #line(length: 100%, stroke: accent-color + 0.5pt)
   ]
 
-  v(1em)
+  v(0.6em)
 
   _columns-fn(column-count, gutter: 1.2em, body)
 }
