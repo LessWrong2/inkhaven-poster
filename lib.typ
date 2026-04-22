@@ -89,6 +89,7 @@
   columns: auto,
   qr-svg: none,
   blog: none,
+  font-size: 13pt,
 ) = {
   let page-size = _resolve-page-size(paper, orientation)
   let column-count = _resolve-columns(paper, orientation, columns)
@@ -125,7 +126,7 @@
 
   set text(
     font: ("Libertinus Serif", "New Computer Modern"),
-    size: 13pt,
+    size: font-size,
     fill: ink-dark,
     lang: "en",
     hyphenate: true,
