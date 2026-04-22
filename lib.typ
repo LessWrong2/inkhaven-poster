@@ -44,12 +44,11 @@
   }
 }
 
-#let byline(author, date: none, accent: rgb("#b8860b")) = {
+#let byline(author, date: none, blog: none, accent: rgb("#b8860b")) = {
   set align(center)
-  set text(size: 15pt, style: "italic", weight: "regular")
-  block(below: 0.4em)[
-    #author
-    #if date != none [ #h(0.8em) #text(size: 11pt, style: "normal", tracking: 0.2em, fill: accent, upper(date)) ]
+  set text(size: 15pt, fill: ink-medium, tracking: 0.2em)
+  block(above: -1.8em, below: 1.2em)[
+    #upper(author)#if blog != none [ · #upper(blog)]#if date != none [ · #upper(date)]
   ]
 }
 
@@ -64,22 +63,19 @@
   )
 }
 
-#let inkhaven-logo(height: 0.8in, fill: ink-medium) = {
-  // Square icon mark + "INKHAVEN" wordmark, vertically centered.
-  grid(
-    columns: (auto, auto),
-    column-gutter: 0.5em,
-    align: horizon,
-    image("assets/inkhaven_logo.webp", height: height),
-    text(
+#let inkhaven-logo(height: 0.8in, text-size: auto, fill: ink-medium) = {
+  block(below: 0.4em)[
+    #set align(center)
+    #image("assets/inkhaven_logo.webp", height: height)
+    #text(
       font: ("Libertinus Serif", "New Computer Modern"),
-      size: height * 0.45,
+      size: if text-size == auto { height * 0.45 } else { text-size },
       weight: "regular",
       tracking: 0.3em,
       fill: fill,
       upper[Inkhaven],
-    ),
-  )
+    )
+  ]
 }
 
 #let poster(
@@ -92,6 +88,7 @@
   accent-color: gold-dark,
   columns: auto,
   qr-svg: none,
+  blog: none,
 ) = {
   let page-size = _resolve-page-size(paper, orientation)
   let column-count = _resolve-columns(paper, orientation, columns)
@@ -99,13 +96,15 @@
   set page(
     width: page-size.width,
     height: page-size.height,
-    margin: (x: 1.5in, y: 0.75in),
+    margin: (x: 1.5in, top: 0.75in, bottom: 1.5in),
     fill: solarized,
-    footer: block(spacing: 0.6em)[
+    footer: [
+      #v(1fr)
       #line(length: 100%, stroke: 0.4pt + accent-color)
-      #set text(size: 10pt, fill: ink-medium, tracking: 0.2em)
       #set align(center)
-      #upper[Inkhaven Residency · Spring 2026 · inkhaven.blog]
+      #text(size: 18pt, fill: accent-color)[Sponsored by ]
+      #box(baseline: 25%)[#image("assets/WPCOM-Dark-Default@2x.png", height: 18pt)]
+      #v(1fr)
     ],
     background: if qr-svg != none {
       place(
@@ -145,17 +144,19 @@
 
   // Title block, non-breakable, spans full width above the columns.
   block(width: 100%, breakable: false)[
-    #set align(center)
-
-    #inkhaven-logo(height: 0.5in)
-
-    #set text(size: 52pt, weight: "regular",
-              font: ("Libertinus Serif", "New Computer Modern"))
-    #block(above: 0.1em, below: 0.7em)[#title]
-
-    #byline(author, date: date, accent: accent-color)
-
-    #line(length: 100%, stroke: accent-color + 0.5pt)
+    #grid(
+      columns: (1fr, auto, 1fr),
+      align: (left + top, center + top, right + top),
+      [#move(dy: -0.2in - 5pt)[#inkhaven-logo(height: 1in, text-size: 0.15in)]],
+      [
+        #set text(size: 58pt, weight: "regular",
+                  font: ("Libertinus Serif", "New Computer Modern"))
+        #block(above: 0.5em, below: 0em)[#title]
+      ],
+      [],
+    )
+    #byline(author, date: date, blog: blog, accent: accent-color)
+    #block(above: 0em, below: 0.8em)[#line(length: 100%, stroke: accent-color + 0.5pt)]
   ]
 
   v(0.6em)
