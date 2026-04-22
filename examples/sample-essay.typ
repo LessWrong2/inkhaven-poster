@@ -2,9 +2,10 @@
 
 #show: poster.with(
   title: "A Sample Poster",
+  blog: "BLOGOGO",
   author: "Inkhaven",
-  date: "2026",
-  paper: "24x36in",
+  date: "04-13-2026",
+  paper: "11x17in",
   orientation: "landscape",
 )
 
