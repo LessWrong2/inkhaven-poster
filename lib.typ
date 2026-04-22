@@ -46,8 +46,8 @@
 
 #let byline(author, date: none, blog: none, accent: rgb("#b8860b")) = {
   set align(center)
-  set text(size: 15pt, fill: ink-medium, tracking: 0.2em)
-  block(above: -1.8em, below: 1.2em)[
+  set text(size: 19pt, fill: ink-dark, weight: "semibold", tracking: 0.2em)
+  block(above: -2.2em, below: 1.2em)[
     #upper(author)#if blog != none [ · #upper(blog)]#if date != none [ · #upper(date)]
   ]
 }
@@ -64,17 +64,30 @@
 }
 
 #let inkhaven-logo(height: 0.8in, text-size: auto, fill: ink-medium) = {
+  let resolved-size = if text-size == auto { height * 0.6 } else { text-size }
   block(below: 0.4em)[
     #set align(center)
     #image("assets/inkhaven_logo.webp", height: height)
-    #text(
-      font: ("Libertinus Serif", "New Computer Modern"),
-      size: if text-size == auto { height * 0.45 } else { text-size },
-      weight: "regular",
-      tracking: 0.3em,
-      fill: fill,
-      upper[Inkhaven],
-    )
+    #block(above: 0em, below: 0em)[
+      #text(
+        font: ("Libertinus Serif", "New Computer Modern"),
+        size: resolved-size,
+        weight: "regular",
+        tracking: 0.3em,
+        fill: fill,
+        upper[Inkhaven],
+      )
+    ]
+    #block(above: 0.3em, below: 0em)[
+      #text(
+        font: ("Libertinus Serif", "New Computer Modern"),
+        size: resolved-size,
+        weight: "regular",
+        tracking: 0.3em,
+        fill: fill,
+        upper[Residency],
+      )
+    ]
   ]
 }
 
@@ -148,7 +161,7 @@
     #grid(
       columns: (1fr, auto, 1fr),
       align: (left + top, center + top, right + top),
-      [#move(dy: -0.2in - 5pt)[#inkhaven-logo(height: 1in, text-size: 0.15in)]],
+      [#move(dy: -0.2in - 5pt)[#inkhaven-logo(height: 1.2in, text-size: 0.18in)]],
       [
         #set text(size: 58pt, weight: "regular",
                   font: ("Libertinus Serif", "New Computer Modern"))
