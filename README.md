@@ -43,8 +43,9 @@ A poster source is a normal `.typ` file that starts with:
 #show: poster.with(
   title: "Your title",
   author: "Your name",
+  blog: "your-blog-name",   // optional — renders in the byline between author and date
   date: "2026-04-15",
-  paper: "24x36in",      // 11x17in | 18x24in | 24x36in | 36x48in
+  paper: "24x36in",         // 11x17in | 18x24in | 24x36in | 36x48in
   orientation: "landscape", // landscape | portrait
 )
 
