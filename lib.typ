@@ -64,7 +64,7 @@
 }
 
 #let inkhaven-logo(height: 0.8in, text-size: auto, fill: ink-medium) = {
-  block(below: 0.4em)[
+  block(below: 0.5em)[
     #set align(center)
     #image("assets/inkhaven_logo.webp", height: height)
     #text(
@@ -104,13 +104,13 @@
       #line(length: 100%, stroke: 0.4pt + accent-color)
       #set align(center)
       #text(size: 18pt, fill: accent-color)[Sponsored by ]
-      #box(baseline: 25%)[#image("assets/WPCOM-Dark-Default@2x.png", height: 18pt)]
+      #box(baseline: 20%)[#image("assets/WPCOM-Dark-Default@2x.png", height: 18pt)]
       #v(1fr)
     ],
     background: if qr-svg != none {
       place(
         top + right,
-        dx: -0.5in,
+        dx: -1.5in,
         dy: 0.6in,
         block[
           #image(bytes(qr-svg), format: "svg", width: 1.1in)
@@ -148,7 +148,7 @@
     #grid(
       columns: (1fr, auto, 1fr),
       align: (left + top, center + top, right + top),
-      [#move(dy: -0.2in - 5pt)[#inkhaven-logo(height: 1in, text-size: 0.15in)]],
+      [#pad(top: -0.75em, bottom: 1em)[#inkhaven-logo(height: 1in, text-size: 0.15in)]],
       [
         #set text(size: 58pt, weight: "regular",
                   font: ("Libertinus Serif", "New Computer Modern"))
