@@ -87,7 +87,7 @@
     #image("assets/inkhaven_logo.webp", height: height)
     #block(above: 0.3em, below: 0em)[
       #text(
-        font: ("Libertinus Serif", "New Computer Modern"),
+        font: ("Libertinus Serif", "New Computer Modern", "Noto Serif CJK SC"),
         size: resolved-size,
         weight: "regular",
         tracking: 0.3em,
@@ -97,7 +97,7 @@
     ]
     #block(above: 0.3em, below: 0em)[
       #text(
-        font: ("Libertinus Serif", "New Computer Modern"),
+        font: ("Libertinus Serif", "New Computer Modern", "Noto Serif CJK SC"),
         size: resolved-size,
         weight: "regular",
         tracking: 0.3em,
@@ -141,7 +141,7 @@
   )
 
   set text(
-    font: ("Libertinus Serif", "New Computer Modern"),
+    font: ("Libertinus Serif", "New Computer Modern", "Noto Serif CJK SC"),
     size: font-size,
     fill: ink-dark,
     lang: "en",
@@ -191,7 +191,7 @@
       [#inkhaven-logo(height: 1.1in, text-size: 0.18in)],
       [
         #set text(size: title-size, weight: "regular", hyphenate: false,
-                  font: ("Libertinus Serif", "New Computer Modern"),
+                  font: ("Libertinus Serif", "New Computer Modern", "Noto Serif CJK SC"),
                   bottom-edge: "descender")
         #set par(justify: false, leading: 0.2em)
         #block(above: 0.5em, below: 0em)[#title]
