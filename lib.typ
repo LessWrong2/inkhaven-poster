@@ -33,7 +33,7 @@
 )
 
 #let _margin-lookup = (
-  "16x20in": (x: 1in, top: 0.75in, bottom: 1in),
+  "16x20in": (x: 1in, top: 0.75in, bottom: 1.5in),
   "18x24in": (x: 1in, top: 0.75in, bottom: 1.5in),
   "22x28in": (x: 1in, top: 0.75in, bottom: 1.5in),
   "24x36in": (x: 1in, top: 0.75in, bottom: 1.5in),
