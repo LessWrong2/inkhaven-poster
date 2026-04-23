@@ -12,22 +12,30 @@
 #let gold-dark    = rgb("#b8860b")
 
 #let _paper-dims = (
-  "11x17in": (11in, 17in),
+  "16x20in": (16in, 20in),
   "18x24in": (18in, 24in),
+  "22x28in": (22in, 28in),
   "24x36in": (24in, 36in),
   "36x48in": (36in, 48in),
 )
 
+// Column counts target ~6" per column on the existing 18x24 / 24x36 / 36x48
+// baseline. 16x20 gets 3 columns in both orientations (~5.3"–6.7"/col) so
+// the column width stays within the same readable range. 22x28 slots
+// between 18x24 and 24x36 — 5 columns landscape (5.6"/col), 4 portrait
+// (5.5"/col).
 #let _column-lookup = (
-  "11x17in": (landscape: 3, portrait: 2),
+  "16x20in": (landscape: 3, portrait: 3),
   "18x24in": (landscape: 4, portrait: 3),
+  "22x28in": (landscape: 5, portrait: 4),
   "24x36in": (landscape: 6, portrait: 4),
   "36x48in": (landscape: 8, portrait: 6),
 )
 
 #let _margin-lookup = (
-  "11x17in": (x: 1in, top: 0.5in, bottom: 1in),
+  "16x20in": (x: 1in, top: 0.75in, bottom: 1in),
   "18x24in": (x: 1in, top: 0.75in, bottom: 1.5in),
+  "22x28in": (x: 1in, top: 0.75in, bottom: 1.5in),
   "24x36in": (x: 1in, top: 0.75in, bottom: 1.5in),
   "36x48in": (x: 1in, top: 0.75in, bottom: 1.5in),
 )
