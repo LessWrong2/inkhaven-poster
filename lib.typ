@@ -159,6 +159,23 @@
     it
   }
 
+  show raw.where(block: true): it => block(
+    width: 100%,
+    fill: rgb("#f4ecd3"),
+    stroke: 0.5pt + gold-dark,
+    inset: (x: 0.8em, y: 0.6em),
+    radius: 3pt,
+    text(size: 0.9em, font: ("Menlo", "DejaVu Sans Mono", "Courier New"), it),
+  )
+
+  show raw.where(block: false): it => box(
+    fill: rgb("#f4ecd3"),
+    inset: (x: 0.25em, y: 0.1em),
+    outset: (y: 0.15em),
+    radius: 2pt,
+    text(font: ("Menlo", "DejaVu Sans Mono", "Courier New"), it),
+  )
+
   // Title block, non-breakable, spans full width above the columns.
   // Fixed 1.75in side columns keep the logo and QR at their natural size
   // regardless of title length (prevents "RESIDENCY" from hyphenating).
