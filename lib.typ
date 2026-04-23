@@ -27,9 +27,9 @@
 
 #let _margin-lookup = (
   "11x17in": (x: 1in, top: 0.5in, bottom: 1in),
-  "18x24in": (x: 1.5in, top: 0.75in, bottom: 1.5in),
-  "24x36in": (x: 1.5in, top: 0.75in, bottom: 1.5in),
-  "36x48in": (x: 1.5in, top: 0.75in, bottom: 1.5in),
+  "18x24in": (x: 1in, top: 0.75in, bottom: 1.5in),
+  "24x36in": (x: 1in, top: 0.75in, bottom: 1.5in),
+  "36x48in": (x: 1in, top: 0.75in, bottom: 1.5in),
 )
 
 #let _resolve-page-size(paper, orientation) = {
