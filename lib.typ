@@ -25,6 +25,13 @@
   "36x48in": (landscape: 8, portrait: 6),
 )
 
+#let _margin-lookup = (
+  "11x17in": (x: 1in, top: 0.5in, bottom: 1in),
+  "18x24in": (x: 1.5in, top: 0.75in, bottom: 1.5in),
+  "24x36in": (x: 1.5in, top: 0.75in, bottom: 1.5in),
+  "36x48in": (x: 1.5in, top: 0.75in, bottom: 1.5in),
+)
+
 #let _resolve-page-size(paper, orientation) = {
   let dims = _paper-dims.at(paper)
   let short = dims.at(0)
@@ -47,7 +54,7 @@
 #let byline(author, date: none, blog: none, accent: rgb("#b8860b")) = {
   set align(center)
   set text(size: 19pt, fill: ink-dark, weight: "semibold", tracking: 0.2em)
-  block(above: -2.2em, below: 1.2em)[
+  block(above: 0.8em, below: 1.2em)[
     #upper(author)#if blog != none [ · #upper(blog)]#if date != none [ · #upper(date)]
   ]
 }
@@ -65,10 +72,12 @@
 
 #let inkhaven-logo(height: 0.8in, text-size: auto, fill: ink-medium) = {
   let resolved-size = if text-size == auto { height * 0.6 } else { text-size }
-  block(below: 0.4em)[
+  block(below: 1in,
+  //  stroke: 1pt + red
+   )[
     #set align(center)
     #image("assets/inkhaven_logo.webp", height: height)
-    #block(above: 0em, below: 0em)[
+    #block(above: 0.3em, below: 0em)[
       #text(
         font: ("Libertinus Serif", "New Computer Modern"),
         size: resolved-size,
@@ -103,6 +112,7 @@
   qr-svg: none,
   blog: none,
   font-size: 13pt,
+  title-size: 58pt,
 ) = {
   let page-size = _resolve-page-size(paper, orientation)
   let column-count = _resolve-columns(paper, orientation, columns)
@@ -110,7 +120,7 @@
   set page(
     width: page-size.width,
     height: page-size.height,
-    margin: (x: 1.5in, top: 0.75in, bottom: 1.5in),
+    margin: _margin-lookup.at(paper),
     fill: solarized,
     footer: [
       #v(1fr)
@@ -120,21 +130,6 @@
       #box(baseline: 25%)[#image("assets/WPCOM-Dark-Default@2x.png", height: 18pt)]
       #v(1fr)
     ],
-    background: if qr-svg != none {
-      place(
-        top + right,
-        dx: -0.5in,
-        dy: 0.6in,
-        block[
-          #image(bytes(qr-svg), format: "svg", width: 1.1in)
-          #block(above: 0.3em, width: 1.1in)[
-            #set text(size: 7pt, fill: ink-medium, tracking: 0.15em)
-            #set align(center)
-            #upper[Read online]
-          ]
-        ],
-      )
-    },
   )
 
   set text(
@@ -157,20 +152,42 @@
   }
 
   // Title block, non-breakable, spans full width above the columns.
-  block(width: 100%, breakable: false)[
+  // Fixed 1.75in side columns keep the logo and QR at their natural size
+  // regardless of title length (prevents "RESIDENCY" from hyphenating).
+  block(width: 100%, breakable: false,
+    // stroke: 1.5pt + red
+   )[
     #grid(
-      columns: (1fr, auto, 1fr),
-      align: (left + top, center + top, right + top),
-      [#move(dy: -0.2in - 5pt)[#inkhaven-logo(height: 1.2in, text-size: 0.18in)]],
+      columns: (1.75in, 1fr, 1.75in),
+      align: (center + horizon, center + bottom, center + horizon),
+      // Logo and QR use place() so they don't contribute to the grid row
+      // height — the row sizes to the title alone, so the byline sits right
+      // under the title regardless of how many lines the title occupies.
+      [#inkhaven-logo(height: 1.1in, text-size: 0.18in)],
       [
-        #set text(size: 58pt, weight: "regular",
-                  font: ("Libertinus Serif", "New Computer Modern"))
+        #set text(size: title-size, weight: "regular", hyphenate: false,
+                  font: ("Libertinus Serif", "New Computer Modern"),
+                  bottom-edge: "descender")
+        #set par(justify: false, leading: 0.2em)
         #block(above: 0.5em, below: 0em)[#title]
+        #byline(author, date: date, blog: blog, accent: accent-color)
       ],
-      [],
+      [
+        #if qr-svg != none {
+          block(
+            // stroke: 1pt + red
+           )[
+            #image(bytes(qr-svg), format: "svg", width: 1.1in)
+            #block(above: 0.3em, width: 1.1in)[
+              #set text(size: 7pt, fill: ink-medium, tracking: 0.15em)
+              #set align(center)
+              #upper[Read online]
+            ]
+          ]
+        }
+      ],
     )
-    #byline(author, date: date, blog: blog, accent: accent-color)
-    #block(above: 0em, below: 0.8em)[#line(length: 100%, stroke: accent-color + 0.5pt)]
+    #block(above: 0.2in, below: 0.8em)[#line(length: 100%, stroke: accent-color + 0.5pt)]
   ]
 
   v(0.6em)
