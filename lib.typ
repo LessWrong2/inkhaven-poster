@@ -25,7 +25,7 @@
 // between 18x24 and 24x36 — 5 columns landscape (5.6"/col), 4 portrait
 // (5.5"/col).
 #let _column-lookup = (
-  "16x20in": (landscape: 3, portrait: 3),
+  "16x20in": (landscape: 3, portrait: 2),
   "18x24in": (landscape: 4, portrait: 3),
   "22x28in": (landscape: 5, portrait: 4),
   "24x36in": (landscape: 6, portrait: 4),
